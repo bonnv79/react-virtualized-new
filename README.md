@@ -1,5 +1,7 @@
 ## React Virtualized New
 
+- Add new MultiGridTable component
+
 <a href="https://bonnv79.github.io/react-virtualized-new">Click open demo</a>
 
 ## React Virtualized

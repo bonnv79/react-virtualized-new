@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AutoSizer from '../AutoSizer';
 import _orderBy from 'lodash/orderBy';
+import _keyBy from 'lodash/keyBy';
 import RefMultiGrid from './RefMultiGrid';
 import styles from './styles.css';
 import clsx from 'clsx';
@@ -17,44 +18,69 @@ import {
 } from './constants';
 
 const getMapColumns = columns => {
+  const newColumns = [];
   let totalWidth = 0;
 
   columns.forEach((col, index) => {
     let {width} = col;
     width = Number(width) || DEFAULT_COLUMN_WIDTH;
-    columns[index].width = width;
+    newColumns[index] = {
+      ...col,
+      width,
+    };
     totalWidth += width;
   });
 
   columns.forEach((col, index) => {
     const {width} = col;
-    columns[index].percent = Math.round((width / totalWidth) * 100) / 100;
+    newColumns[index].percent = Math.round((width / totalWidth) * 100) / 100;
   });
 
-  return columns;
+  return newColumns;
+};
+
+const getRows = (rows, sortBy, sortDirection) => {
+  if (!sortBy) {
+    return rows;
+  }
+  return _orderBy(rows, [sortBy], [sortDirection]);
 };
 
 class MultiGridTable extends React.Component {
   state = {
+    prevColumns: [],
     columns: [],
     prevRows: [],
     rows: [],
+    prevValue: '',
+    value: '',
     sortBy: '',
     sortDirection: '',
     hover: '',
     prevWidth: 0,
     prevFixedColumnCount: 0,
+    prevColumnsBk: [],
   };
 
   static getDerivedStateFromProps(props, state) {
-    if (props.columns !== state.columns || props.rows !== state.prevRows) {
-      return {
-        columns: getMapColumns(props.columns),
-        prevRows: props.rows,
-        rows: props.rows,
-      };
+    const newState = {};
+
+    if (props.columns !== state.prevColumns) {
+      newState.columns = getMapColumns(props.columns);
+      newState.prevColumns = props.columns;
     }
-    return null;
+
+    if (props.rows !== state.prevRows) {
+      newState.rows = getRows(props.rows, state.sortBy, state.sortDirection);
+      newState.prevRows = props.rows;
+    }
+
+    if (props.value !== state.prevValue) {
+      newState.value = props.multiple ? _keyBy(props.value) : props.value;
+      newState.prevValue = props.value;
+    }
+
+    return newState;
   }
 
   changeSort = sortBy => () => {
@@ -72,14 +98,29 @@ class MultiGridTable extends React.Component {
     this.setState({
       sortBy,
       sortDirection,
-      rows: _orderBy(rows, [sortBy], [sortDirection]),
+      rows: getRows(rows, sortBy, sortDirection),
     });
   };
 
   onRowClick = (rowData, dataKey, index) => () => {
-    const {onRowClick, rowKey} = this.props;
-    const value = rowData[rowKey];
-    onRowClick(value, rowData, index, dataKey);
+    const {onRowClick, rowKey, multiple} = this.props;
+    const id = rowData[rowKey];
+    let newValue = id;
+
+    if (multiple) {
+      const {value} = this.state;
+      newValue = typeof value === 'object' ? value : {};
+
+      if (newValue[id]) {
+        delete newValue[id];
+      } else {
+        newValue[id] = id;
+      }
+
+      newValue = Object.values(newValue);
+    }
+
+    onRowClick(newValue, rowData, index, dataKey);
   };
 
   onHoverCell = rowIndex => () => {
@@ -119,15 +160,15 @@ class MultiGridTable extends React.Component {
       return this.headerCellRenderer({key, columnIndex, style, rowIndex});
     }
 
-    const {value, rowKey} = this.props;
-    const {rows, columns, hover} = this.state;
+    const {rowKey, multiple} = this.props;
+    const {rows, columns, hover, value} = this.state;
     const {dataKey, align} = columns[columnIndex];
     const rowData = rows[rowIndex - 1];
     const label = rowData[dataKey];
     const id = rowData[rowKey];
     const className = {
       [styles.cellHover]: hover === rowIndex,
-      [styles.cellSelected]: value === id,
+      [styles.cellSelected]: value && multiple ? value[id] : value === id,
       [styles[align]]: !!align,
     };
 
@@ -159,15 +200,27 @@ class MultiGridTable extends React.Component {
     });
   };
 
-  setPrevFixedColumnCount = value => {
+  setPrevFixedColumnCount = count => {
     this.setState({
-      prevFixedColumnCount: value,
+      prevFixedColumnCount: count,
+    });
+  };
+
+  setPrevColumnsBk = columns => {
+    this.setState({
+      prevColumnsBk: columns,
     });
   };
 
   render() {
     const {fixedRowCount, ...props} = this.props;
-    const {rows, columns, prevWidth, prevFixedColumnCount} = this.state;
+    const {
+      rows,
+      columns,
+      prevWidth,
+      prevFixedColumnCount,
+      prevColumnsBk,
+    } = this.state;
 
     return (
       <AutoSizer>
@@ -192,6 +245,9 @@ class MultiGridTable extends React.Component {
             setPrevWidth={this.setPrevWidth}
             prevFixedColumnCount={prevFixedColumnCount}
             setPrevFixedColumnCount={this.setPrevFixedColumnCount}
+            columns={columns}
+            prevColumnsBk={prevColumnsBk}
+            setPrevColumnsBk={this.setPrevColumnsBk}
             {...props}
           />
         )}
@@ -209,6 +265,7 @@ MultiGridTable.defaultProps = {
   onRowClick: () => {},
   rowKey: 'id',
   value: '',
+  multiple: false,
 };
 
 MultiGridTable.propTypes = {
@@ -220,7 +277,12 @@ MultiGridTable.propTypes = {
   scrollToRow: PropTypes.number,
   onRowClick: PropTypes.func,
   rowKey: PropTypes.string,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.instanceOf(Array),
+  ]),
+  multiple: PropTypes.bool,
 };
 
 export default MultiGridTable;
