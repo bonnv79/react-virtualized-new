@@ -24,6 +24,7 @@ import MultiGridExample from '../MultiGrid/MultiGrid.example';
 import ScrollSyncExample from '../ScrollSync/ScrollSync.example';
 import TableExample from '../Table/Table.example';
 import WindowScrollerExample from '../WindowScroller/WindowScroller.example';
+import MultiGridTable from '../MultiGridTable/MultiGridTable.example';
 
 const COMPONENT_EXAMPLES_MAP = {
   '/components/ArrowKeyStepper': ArrowKeyStepperExample,
@@ -39,6 +40,7 @@ const COMPONENT_EXAMPLES_MAP = {
   '/components/ScrollSync': ScrollSyncExample,
   '/components/Table': TableExample,
   '/components/WindowScroller': WindowScrollerExample,
+  '/components/MultiGridTable': MultiGridTable,
 };
 
 // HACK Generate arbitrary data for use in example components :)
@@ -154,6 +156,9 @@ export default class Application extends React.PureComponent {
               </ComponentLink>
               <ComponentLink to="/components/WindowScroller">
                 WindowScroller
+              </ComponentLink>
+              <ComponentLink to="/components/MultiGridTable">
+                MultiGridTable
               </ComponentLink>
             </div>
           </div>
