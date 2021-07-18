@@ -11,8 +11,8 @@ import {
   STYLE_BOTTOM_LEFT_GRID,
   STYLE_TOP_LEFT_GRID,
   STYLE_TOP_RIGHT_GRID,
-  OPPOSITION_ORDER_BY,
-  ORDER_BY,
+  OPPOSITION_SORT_DIRECTIONS,
+  SORT_DIRECTIONS,
   DEFAULT_COLUMN_WIDTH,
 } from './constants';
 
@@ -40,7 +40,7 @@ class MultiGridTable extends React.Component {
     prevRows: [],
     rows: [],
     sortBy: '',
-    orderBy: '',
+    sortDirection: '',
     hover: '',
     prevWidth: 0,
     prevFixedColumnCount: 0,
@@ -58,17 +58,21 @@ class MultiGridTable extends React.Component {
   }
 
   changeSort = sortBy => () => {
-    const {sortBy: prevSortBy, orderBy: prevOrderBy, rows} = this.state;
-    let orderBy = ORDER_BY.ASC;
+    const {
+      sortBy: prevSortBy,
+      sortDirection: prevSortDirection,
+      rows,
+    } = this.state;
+    let sortDirection = SORT_DIRECTIONS.ASC;
 
     if (sortBy === prevSortBy) {
-      orderBy = OPPOSITION_ORDER_BY[prevOrderBy];
+      sortDirection = OPPOSITION_SORT_DIRECTIONS[prevSortDirection];
     }
 
     this.setState({
       sortBy,
-      orderBy,
-      rows: _orderBy(rows, [sortBy], [orderBy]),
+      sortDirection,
+      rows: _orderBy(rows, [sortBy], [sortDirection]),
     });
   };
 
@@ -85,10 +89,10 @@ class MultiGridTable extends React.Component {
   };
 
   headerCellRenderer = ({key, columnIndex, style}) => {
-    const {columns, sortBy, orderBy} = this.state;
+    const {columns, sortBy, sortDirection} = this.state;
     const {dataKey, label, sort} = columns[columnIndex];
     const isSort = sortBy === dataKey;
-    const ascSort = orderBy === ORDER_BY.ASC;
+    const ascSort = sortDirection === SORT_DIRECTIONS.ASC;
     const className = {
       [styles.sortBy]: sort,
       [styles.ascSort]: isSort && ascSort,

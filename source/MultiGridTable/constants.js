@@ -18,14 +18,14 @@ export const STYLE_TOP_RIGHT_GRID = {
   fontWeight: 'bold',
 };
 
-export const ORDER_BY = {
+export const SORT_DIRECTIONS = {
   ASC: 'asc',
   DESC: 'desc',
 };
 
-export const OPPOSITION_ORDER_BY = {
-  [ORDER_BY.ASC]: ORDER_BY.DESC,
-  [ORDER_BY.DESC]: ORDER_BY.ASC,
+export const OPPOSITION_SORT_DIRECTIONS = {
+  [SORT_DIRECTIONS.ASC]: SORT_DIRECTIONS.DESC,
+  [SORT_DIRECTIONS.DESC]: SORT_DIRECTIONS.ASC,
 };
 
 export const DEFAULT_COLUMN_WIDTH = 100;
