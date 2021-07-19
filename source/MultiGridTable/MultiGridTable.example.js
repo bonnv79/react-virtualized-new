@@ -5,6 +5,7 @@ import {ContentBox} from '../demo/ContentBox';
 import {LabeledInput, InputRow} from '../demo/LabeledInput';
 import MultiGridTable from './MultiGridTable';
 import styles from './MultiGridTable.example.css';
+import multiGridTableStyles from './MultiGridTable.module.css';
 
 const sample = [
   ['Frozen yoghurt', 159, 6.0, 24, 4.0],
@@ -277,6 +278,7 @@ export default class MultiGridTableExample extends React.PureComponent {
             onRowClick={this._onRowClick}
             value={value.value}
             multiple={multiple}
+            classes={multiGridTableStyles}
           />
         </div>
       </ContentBox>

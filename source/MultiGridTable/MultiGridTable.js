@@ -5,7 +5,6 @@ import AutoSizer from '../AutoSizer';
 import _orderBy from 'lodash/orderBy';
 import _keyBy from 'lodash/keyBy';
 import RefMultiGrid from './RefMultiGrid';
-import styles from './MultiGridTable.module.css';
 import clsx from 'clsx';
 import {
   STYLE,
@@ -45,12 +44,6 @@ const getRows = (rows, sortBy, sortDirection) => {
   }
   return _orderBy(rows, [sortBy], [sortDirection]);
 };
-
-const alignClassName = {
-  right: styles.ReactVirtualized__MultiGridTable__Right,
-  center: styles.ReactVirtualized__MultiGridTable__Center,
-};
-
 class MultiGridTable extends React.Component {
   state = {
     prevColumns: [],
@@ -135,20 +128,39 @@ class MultiGridTable extends React.Component {
   };
 
   headerCellRenderer = ({key, columnIndex, style}) => {
+    const {classes} = this.props;
     const {columns, sortBy, sortDirection} = this.state;
     const {dataKey, label, sort} = columns[columnIndex];
     const isSort = sortBy === dataKey;
     const ascSort = sortDirection === SORT_DIRECTIONS.ASC;
+    const sortByClass = clsx(
+      'ReactVirtualized__MultiGridTable__SortBy',
+      classes.ReactVirtualized__MultiGridTable__SortBy,
+    );
+
+    const ascSortClass = clsx(
+      'ReactVirtualized__MultiGridTable__AscSort',
+      classes.ReactVirtualized__MultiGridTable__AscSort,
+    );
+
+    const descSortClass = clsx(
+      'ReactVirtualized__MultiGridTable__DescSort',
+      classes.ReactVirtualized__MultiGridTable__DescSort,
+    );
+
     const className = {
-      [styles.ReactVirtualized__MultiGridTable__SortBy]: sort,
-      [styles.ReactVirtualized__MultiGridTable__AscSort]: isSort && ascSort,
-      [styles.ReactVirtualized__MultiGridTable__DescSort]: isSort && !ascSort,
+      [sortByClass]: sort,
+      [ascSortClass]: isSort && ascSort,
+      [descSortClass]: isSort && !ascSort,
     };
 
     return (
       <div
         key={key}
-        className={styles.ReactVirtualized__MultiGridTable__Cell}
+        className={clsx(
+          'ReactVirtualized__MultiGridTable__Cell',
+          classes.ReactVirtualized__MultiGridTable__Cell,
+        )}
         style={style}>
         <span
           tabIndex="0"
@@ -156,7 +168,8 @@ class MultiGridTable extends React.Component {
           aria-pressed="false"
           title={label}
           className={clsx(
-            styles.ReactVirtualized__MultiGridTable__NonePointerEvents,
+            'ReactVirtualized__MultiGridTable__NonePointerEvents',
+            classes.ReactVirtualized__MultiGridTable__NonePointerEvents,
             className,
           )}
           onClick={this.changeSort(dataKey)}>
@@ -171,7 +184,7 @@ class MultiGridTable extends React.Component {
       return this.headerCellRenderer({key, columnIndex, style, rowIndex});
     }
 
-    const {rowKey, multiple} = this.props;
+    const {rowKey, multiple, classes} = this.props;
     const {rows, columns, hover, value} = this.state;
     const {dataKey, align} = columns[columnIndex];
     const rowData = rows[rowIndex - 1];
@@ -179,9 +192,30 @@ class MultiGridTable extends React.Component {
     const id = rowData[rowKey];
     const selected = value && multiple ? value[id] : value === id;
 
+    const alignClassName = {
+      right: clsx(
+        'ReactVirtualized__MultiGridTable__Right',
+        classes.ReactVirtualized__MultiGridTable__Right,
+      ),
+      center: clsx(
+        'ReactVirtualized__MultiGridTable__Center',
+        classes.ReactVirtualized__MultiGridTable__Center,
+      ),
+    };
+
+    const cellHoverClass = clsx(
+      'ReactVirtualized__MultiGridTable__CellHover',
+      classes.ReactVirtualized__MultiGridTable__CellHover,
+    );
+
+    const cellSelectedClass = clsx(
+      'ReactVirtualized__MultiGridTable__CellSelected',
+      classes.ReactVirtualized__MultiGridTable__CellSelected,
+    );
+
     const className = {
-      [styles.ReactVirtualized__MultiGridTable__CellHover]: hover === rowIndex,
-      [styles.ReactVirtualized__MultiGridTable__CellSelected]: selected,
+      [cellHoverClass]: hover === rowIndex,
+      [cellSelectedClass]: selected,
       [alignClassName[align]]: !!align,
     };
 
@@ -192,7 +226,8 @@ class MultiGridTable extends React.Component {
         aria-pressed="false"
         key={key}
         className={clsx(
-          styles.ReactVirtualized__MultiGridTable__Cell,
+          'ReactVirtualized__MultiGridTable__Cell',
+          classes.ReactVirtualized__MultiGridTable__Cell,
           className,
         )}
         style={style}
@@ -273,6 +308,7 @@ class MultiGridTable extends React.Component {
 }
 
 MultiGridTable.defaultProps = {
+  classes: {},
   fixedColumnCount: 0,
   fixedRowCount: 0,
   scrollToColumn: 0,
@@ -285,6 +321,7 @@ MultiGridTable.defaultProps = {
 };
 
 MultiGridTable.propTypes = {
+  classes: PropTypes.instanceOf(Object),
   rows: PropTypes.arrayOf(Object).isRequired,
   columns: PropTypes.arrayOf(Object).isRequired,
   fixedColumnCount: PropTypes.number,
