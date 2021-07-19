@@ -1,4 +1,4 @@
-.ReactVirtualized__Table__Cell {
+.ReactVirtualized__MultiGridTable__Cell {
   flex: 1 0 auto;
   padding: 0px 8px;
   border-bottom: 1px solid rgba(224, 224, 224, 1);
@@ -8,41 +8,41 @@
   box-sizing: border-box;
 }
 
-.ReactVirtualized__Table__CellHover {
+.ReactVirtualized__MultiGridTable__CellHover {
   background-color: #efefef;
 }
 
-.ReactVirtualized__Table__CellSelected {
+.ReactVirtualized__MultiGridTable__CellSelected {
   background-color: #cbe7ff;
 }
 
-.ReactVirtualized__Table__Cell > span {
+.ReactVirtualized__MultiGridTable__Cell > span {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.ReactVirtualized__Table__Right {
+.ReactVirtualized__MultiGridTable__Right {
   justify-content: flex-end;
 }
 
-.ReactVirtualized__Table__Center {
+.ReactVirtualized__MultiGridTable__Center {
   justify-content: center;
 }
 
-.ReactVirtualized__Table__NonePointerEvents {
+.ReactVirtualized__MultiGridTable__NonePointerEvents {
   pointer-events: none;
 }
 
-.ReactVirtualized__Table__SortBy {
+.ReactVirtualized__MultiGridTable__SortBy {
   padding-right: 18px;
   position: relative;
   cursor: pointer;
   pointer-events: all;
 }
 
-.ReactVirtualized__Table__SortBy:before,
-.ReactVirtualized__Table__SortBy:after {
+.ReactVirtualized__MultiGridTable__SortBy:before,
+.ReactVirtualized__MultiGridTable__SortBy:after {
   border: 4px solid transparent;
   content: '';
   display: block;
@@ -53,22 +53,22 @@
   width: 0;
 }
 
-.ReactVirtualized__Table__SortBy:before {
+.ReactVirtualized__MultiGridTable__SortBy:before {
   border-bottom-color: #666;
   margin-top: -9px;
   opacity: 0.3;
 }
 
-.ReactVirtualized__Table__SortBy:after {
+.ReactVirtualized__MultiGridTable__SortBy:after {
   border-top-color: #666;
   margin-top: 1px;
   opacity: 0.3;
 }
 
-.ReactVirtualized__Table__AscSort:before {
+.ReactVirtualized__MultiGridTable__AscSort:before {
   opacity: 1 !important;
 }
 
-.ReactVirtualized__Table__DescSort:after {
+.ReactVirtualized__MultiGridTable__DescSort:after {
   opacity: 1 !important;
 }
