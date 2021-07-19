@@ -9,7 +9,7 @@ import {
 import {LabeledInput, InputRow} from '../demo/LabeledInput';
 import MultiGridTable from './MultiGridTable';
 import styles from './MultiGridTable.example.css';
-import multiGridTableStyles from './MultiGridTable.module.css';
+import multiGridTableStyles from '../styles.css';
 import {getURL} from '../demo/utils';
 
 const sample = [
