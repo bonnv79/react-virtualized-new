@@ -10,10 +10,15 @@
 .oddRow {
   background-color: #fafafa;
 }
-.headerColumn {
+.headerColumn,
+.headerColumn > div {
   text-transform: none;
+  align-items: center;
+  display: flex;
+  overflow: hidden;
 }
-.exampleColumn {
+.rowColumn,
+.headerColumn > span {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -37,4 +42,18 @@
   justify-content: center;
   font-size: 1em;
   color: #bdbdbd;
+}
+
+.headerRow {
+  font-weight: 700;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }

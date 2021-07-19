@@ -212,16 +212,16 @@ export default class TableExample extends React.PureComponent {
                 )}
                 <Column
                   dataKey="name"
+                  className={styles.rowColumn}
                   disableSort={!this._isSortEnabled()}
                   headerRenderer={this._headerRenderer}
                   width={90}
                 />
                 <Column
                   width={210}
-                  disableSort
                   label="The description label is really long so that it will be truncated"
                   dataKey="random"
-                  className={styles.exampleColumn}
+                  className={styles.rowColumn}
                   cellRenderer={({cellData}) => cellData}
                   flexGrow={1}
                 />
@@ -287,7 +287,8 @@ export default class TableExample extends React.PureComponent {
     if (index < 0) {
       return styles.headerRow;
     } else {
-      return index % 2 === 0 ? styles.evenRow : styles.oddRow;
+      const rowClass = index % 2 === 0 ? styles.evenRow : styles.oddRow;
+      return `${styles.row} ${rowClass}`;
     }
   }
 
