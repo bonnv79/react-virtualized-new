@@ -14,6 +14,7 @@ import {
   OPPOSITION_SORT_DIRECTIONS,
   SORT_DIRECTIONS,
   DEFAULT_COLUMN_WIDTH,
+  SCROLLBAR_WIDTH,
 } from './constants';
 
 const getMapColumns = columns => {
@@ -32,7 +33,7 @@ const getMapColumns = columns => {
 
   columns.forEach((col, index) => {
     const {width} = col;
-    newColumns[index].percent = Math.round((width / totalWidth) * 100) / 100;
+    newColumns[index].percent = width / totalWidth;
   });
 
   return newColumns;
@@ -44,6 +45,7 @@ const getRows = (rows, sortBy, sortDirection) => {
   }
   return _orderBy(rows, [sortBy], [sortDirection]);
 };
+
 class MultiGridTable extends React.Component {
   state = {
     prevColumns: [],
@@ -242,7 +244,7 @@ class MultiGridTable extends React.Component {
     const {columns} = this.state;
     const {width, percent} = columns[index];
 
-    return Math.max(gridWidth * percent, width);
+    return Math.max((gridWidth - SCROLLBAR_WIDTH) * percent, width);
   };
 
   setPrevWidth = width => {
