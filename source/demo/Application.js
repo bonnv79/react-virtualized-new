@@ -94,7 +94,7 @@ export default class Application extends React.PureComponent {
                   src="https://cloud.githubusercontent.com/assets/29597/11736841/c0497158-9f87-11e5-8dfe-9c0be97d4286.png"
                 />
                 <div className={styles.PrimaryLogoText}>React</div>
-                <div className={styles.SecondaryLogoText}>Virtualized</div>
+                <div className={styles.SecondaryLogoText}>Virtualized New</div>
               </div>
 
               <ul className={styles.NavList}>
@@ -105,17 +105,17 @@ export default class Application extends React.PureComponent {
                   Wizard
                 </NavLink>
                 <NavLink
-                  href="https://github.com/bvaughn/react-virtualized"
+                  href="https://github.com/bonnv79/react-virtualized-new"
                   iconType={TYPES.SOURCE}>
                   Source
                 </NavLink>
                 <NavLink
-                  href="https://github.com/bvaughn/react-virtualized/tree/master/docs#documentation"
+                  href="https://github.com/bonnv79/react-virtualized-new/tree/master/docs#documentation"
                   iconType={TYPES.DOCUMENTATION}>
                   Documentation
                 </NavLink>
                 <NavLink
-                  href="https://github.com/bvaughn/react-virtualized/issues"
+                  href="https://github.com/bonnv79/react-virtualized-new/issues"
                   iconType={TYPES.ISSUES}>
                   Issues
                 </NavLink>

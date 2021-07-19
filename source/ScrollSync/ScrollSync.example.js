@@ -11,6 +11,7 @@ import ScrollSync from './ScrollSync';
 import clsx from 'clsx';
 import styles from './ScrollSync.example.css';
 import scrollbarSize from 'dom-helpers/scrollbarSize';
+import {getURL} from '../demo/utils';
 
 const LEFT_COLOR_FROM = hexToRgb('#471061');
 const LEFT_COLOR_TO = hexToRgb('#BC3959');
@@ -51,8 +52,8 @@ export default class GridExample extends React.PureComponent {
       <ContentBox>
         <ContentBoxHeader
           text="ScrollSync"
-          sourceLink="https://github.com/bvaughn/react-virtualized/blob/master/source/ScrollSync/ScrollSync.example.js"
-          docsLink="https://github.com/bvaughn/react-virtualized/blob/master/docs/ScrollSync.md"
+          sourceLink={getURL('source/ScrollSync/ScrollSync.example.js')}
+          docsLink={getURL('docs/ScrollSync.md')}
         />
 
         <ContentBoxParagraph>

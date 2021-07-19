@@ -31,7 +31,7 @@ const getMapColumns = columns => {
     totalWidth += width;
   });
 
-  columns.forEach((col, index) => {
+  newColumns.forEach((col, index) => {
     const {width} = col;
     newColumns[index].percent = width / totalWidth;
   });

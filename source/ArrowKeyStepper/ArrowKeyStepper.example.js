@@ -11,6 +11,7 @@ import AutoSizer from '../AutoSizer';
 import Grid from '../Grid';
 import clsx from 'clsx';
 import styles from './ArrowKeyStepper.example.css';
+import {getURL} from '../demo/utils';
 
 type State = {
   mode: 'edges' | 'cells',
@@ -37,8 +38,10 @@ export default class ArrowKeyStepperExample extends React.PureComponent<
       <ContentBox>
         <ContentBoxHeader
           text="ArrowKeyStepper"
-          sourceLink="https://github.com/bvaughn/react-virtualized/blob/master/source/ArrowKeyStepper/ArrowKeyStepper.example.js"
-          docsLink="https://github.com/bvaughn/react-virtualized/blob/master/docs/ArrowKeyStepper.md"
+          sourceLink={getURL(
+            'source/ArrowKeyStepper/ArrowKeyStepper.example.js',
+          )}
+          docsLink={getURL('docs/ArrowKeyStepper.md')}
         />
 
         <ContentBoxParagraph>

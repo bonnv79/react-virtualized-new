@@ -11,6 +11,7 @@ import {LabeledInput, InputRow} from '../demo/LabeledInput';
 import AutoSizer from '../AutoSizer';
 import Collection from './Collection';
 import styles from './Collection.example.css';
+import {getURL} from '../demo/utils';
 
 // Defines a pattern of sizes and positions for a range of 10 rotating cells
 // These cells cover an area of 600 (wide) x 400 (tall)
@@ -67,8 +68,8 @@ export default class CollectionExample extends React.PureComponent {
       <ContentBox>
         <ContentBoxHeader
           text="Collection"
-          sourceLink="https://github.com/bvaughn/react-virtualized/blob/master/source/Collection/Collection.example.js"
-          docsLink="https://github.com/bvaughn/react-virtualized/blob/master/docs/Collection.md"
+          sourceLink={getURL('source/Collection/Collection.example.js')}
+          docsLink={getURL('docs/Collection.md')}
         />
 
         <ContentBoxParagraph>

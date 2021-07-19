@@ -14,6 +14,7 @@ import DynamicHeightGrid from './CellMeasurer.DynamicHeightGrid.example.js';
 import DynamicWidthMultiGrid from './CellMeasurer.DynamicWidthMultiGrid.example.js';
 import DynamicHeightList from './CellMeasurer.DynamicHeightList.example.js';
 import DynamicHeightTableColumn from './CellMeasurer.DynamicHeightTableColumn.example.js';
+import {getURL} from '../demo/utils';
 
 const demoComponents = [
   DynamicWidthGrid,
@@ -53,8 +54,8 @@ export default class CellMeasurerExample extends React.PureComponent {
       <ContentBox>
         <ContentBoxHeader
           text="CellMeasurer"
-          sourceLink="https://github.com/bvaughn/react-virtualized/blob/master/source/CellMeasurer/CellMeasurer.example.js"
-          docsLink="https://github.com/bvaughn/react-virtualized/blob/master/docs/CellMeasurer.md"
+          sourceLink={getURL('source/CellMeasurer/CellMeasurer.example.js')}
+          docsLink={getURL('docs/CellMeasurer.md')}
         />
 
         <ContentBoxParagraph>

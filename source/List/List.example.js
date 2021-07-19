@@ -11,6 +11,7 @@ import {
   ContentBoxParagraph,
 } from '../demo/ContentBox';
 import {LabeledInput, InputRow} from '../demo/LabeledInput';
+import {getURL} from '../demo/utils';
 
 export default class ListExample extends React.PureComponent {
   static contextTypes = {
@@ -52,8 +53,8 @@ export default class ListExample extends React.PureComponent {
       <ContentBox>
         <ContentBoxHeader
           text="List"
-          sourceLink="https://github.com/bvaughn/react-virtualized/blob/master/source/List/List.example.js"
-          docsLink="https://github.com/bvaughn/react-virtualized/blob/master/docs/List.md"
+          sourceLink={getURL('source/List/List.example.js')}
+          docsLink={getURL('docs/List.md')}
         />
 
         <ContentBoxParagraph>

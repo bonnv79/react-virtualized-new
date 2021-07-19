@@ -14,6 +14,7 @@ import WindowScroller from './WindowScroller';
 import List from '../List';
 import AutoSizer from '../AutoSizer';
 import styles from './WindowScroller.example.css';
+import {getURL} from '../demo/utils';
 
 type State = {
   scrollToIndex: number,
@@ -46,8 +47,8 @@ export default class WindowScrollerExample extends React.PureComponent<
       <ContentBox>
         <ContentBoxHeader
           text="WindowScroller"
-          sourceLink="https://github.com/bvaughn/react-virtualized/blob/master/source/WindowScroller/WindowScroller.example.js"
-          docsLink="https://github.com/bvaughn/react-virtualized/blob/master/docs/WindowScroller.md"
+          sourceLink={getURL('source/WindowScroller/WindowScroller.example.js')}
+          docsLink={getURL('docs/WindowScroller.md')}
         />
 
         {showHeaderText && (

@@ -11,6 +11,7 @@ import {
 import AutoSizer from './AutoSizer';
 import List, {type RowRendererParams} from '../List';
 import styles from './AutoSizer.example.css';
+import {getURL} from '../demo/utils';
 
 type State = {
   hideDescription: boolean,
@@ -37,8 +38,8 @@ export default class AutoSizerExample extends React.PureComponent<{}, State> {
         }}>
         <ContentBoxHeader
           text="AutoSizer"
-          sourceLink="https://github.com/bvaughn/react-virtualized/blob/master/source/AutoSizer/AutoSizer.example.js"
-          docsLink="https://github.com/bvaughn/react-virtualized/blob/master/docs/AutoSizer.md"
+          sourceLink={getURL('source/AutoSizer/AutoSizer.example.js')}
+          docsLink={getURL('docs/AutoSizer.md')}
         />
 
         <ContentBoxParagraph>

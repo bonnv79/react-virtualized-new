@@ -59,7 +59,6 @@ a {
 }
 .PrimaryLogoText,
 .SecondaryLogoText {
-  text-transform: lowercase;
   font-size: 2em;
 }
 .PrimaryLogoText {

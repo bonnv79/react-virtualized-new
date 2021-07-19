@@ -11,6 +11,7 @@ import AutoSizer from '../AutoSizer';
 import Grid from './Grid';
 import clsx from 'clsx';
 import styles from './Grid.example.css';
+import {getURL} from '../demo/utils';
 
 export default class GridExample extends React.PureComponent {
   static contextTypes = {
@@ -62,8 +63,8 @@ export default class GridExample extends React.PureComponent {
       <ContentBox>
         <ContentBoxHeader
           text="Grid"
-          sourceLink="https://github.com/bvaughn/react-virtualized/blob/master/source/Grid/Grid.example.js"
-          docsLink="https://github.com/bvaughn/react-virtualized/blob/master/docs/Grid.md"
+          sourceLink={getURL('source/Grid/Grid.example.js')}
+          docsLink={getURL('docs/Grid.md')}
         />
 
         <ContentBoxParagraph>

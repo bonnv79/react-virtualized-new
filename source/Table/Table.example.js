@@ -14,6 +14,7 @@ import Table from './Table';
 import SortDirection from './SortDirection';
 import SortIndicator from './SortIndicator';
 import styles from './Table.example.css';
+import {getURL} from '../demo/utils';
 
 export default class TableExample extends React.PureComponent {
   static contextTypes = {
@@ -73,8 +74,8 @@ export default class TableExample extends React.PureComponent {
       <ContentBox>
         <ContentBoxHeader
           text="Table"
-          sourceLink="https://github.com/bvaughn/react-virtualized/blob/master/source/Table/Table.example.js"
-          docsLink="https://github.com/bvaughn/react-virtualized/blob/master/docs/Table.md"
+          sourceLink={getURL('source/Table/Table.example.js')}
+          docsLink={getURL('docs/Table.md')}
         />
 
         <ContentBoxParagraph>

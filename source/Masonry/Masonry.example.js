@@ -14,6 +14,7 @@ import WindowScroller from '../WindowScroller';
 import createCellPositioner from './createCellPositioner';
 import Masonry from './Masonry';
 import styles from './Masonry.example.css';
+import {getURL} from '../demo/utils';
 
 export default class GridExample extends React.PureComponent {
   static contextTypes = {
@@ -71,8 +72,8 @@ export default class GridExample extends React.PureComponent {
       <ContentBox>
         <ContentBoxHeader
           text="Masonry"
-          sourceLink="https://github.com/bvaughn/react-virtualized/blob/master/source/Masonry/Masonry.example.js"
-          docsLink="https://github.com/bvaughn/react-virtualized/blob/master/docs/Masonry.md"
+          sourceLink={getURL('source/Masonry/Masonry.example.js')}
+          docsLink={getURL('docs/Masonry.md')}
         />
 
         <ContentBoxParagraph>

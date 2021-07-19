@@ -12,6 +12,7 @@ import {
   ContentBoxParagraph,
 } from '../demo/ContentBox';
 import {LabeledInput, InputRow} from '../demo/LabeledInput';
+import {getURL} from '../demo/utils';
 
 export default class ColumnSizerExample extends React.PureComponent {
   constructor(props) {
@@ -37,8 +38,8 @@ export default class ColumnSizerExample extends React.PureComponent {
       <ContentBox>
         <ContentBoxHeader
           text="ColumnSizer"
-          sourceLink="https://github.com/bvaughn/react-virtualized/blob/master/source/ColumnSizer/ColumnSizer.example.js"
-          docsLink="https://github.com/bvaughn/react-virtualized/blob/master/docs/ColumnSizer.md"
+          sourceLink={getURL('source/ColumnSizer/ColumnSizer.example.js')}
+          docsLink={getURL('docs/ColumnSizer.md')}
         />
 
         <ContentBoxParagraph>

@@ -11,6 +11,7 @@ import AutoSizer from '../AutoSizer';
 import InfiniteLoader from './InfiniteLoader';
 import List from '../List';
 import styles from './InfiniteLoader.example.css';
+import {getURL} from '../demo/utils';
 
 const STATUS_LOADING = 1;
 const STATUS_LOADED = 2;
@@ -51,8 +52,8 @@ export default class InfiniteLoaderExample extends React.PureComponent {
       <ContentBox>
         <ContentBoxHeader
           text="InfiniteLoader"
-          sourceLink="https://github.com/bvaughn/react-virtualized/blob/master/source/InfiniteLoader/InfiniteLoader.example.js"
-          docsLink="https://github.com/bvaughn/react-virtualized/blob/master/docs/InfiniteLoader.md"
+          sourceLink={getURL('source/InfiniteLoader/InfiniteLoader.example.js')}
+          docsLink={getURL('docs/InfiniteLoader.md')}
         />
 
         <ContentBoxParagraph>

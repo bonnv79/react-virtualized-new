@@ -11,6 +11,7 @@ import {LabeledInput, InputRow} from '../demo/LabeledInput';
 import AutoSizer from '../AutoSizer';
 import MultiGrid from './MultiGrid';
 import styles from './MultiGrid.example.css';
+import {getURL} from '../demo/utils';
 
 const STYLE = {
   border: '1px solid #ddd',
@@ -58,8 +59,8 @@ export default class MultiGridExample extends React.PureComponent {
       <ContentBox>
         <ContentBoxHeader
           text="MultiGrid"
-          sourceLink="https://github.com/bvaughn/react-virtualized/blob/master/source/MultiGrid/MultiGrid.example.js"
-          docsLink="https://github.com/bvaughn/react-virtualized/blob/master/docs/MultiGrid.md"
+          sourceLink={getURL('source/MultiGrid/MultiGrid.example.js')}
+          docsLink={getURL('docs/MultiGrid.md')}
         />
 
         <ContentBoxParagraph>
