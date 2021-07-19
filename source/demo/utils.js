@@ -1,6 +1,10 @@
 /**
  * Generate random data for use in examples.
  */
+export function getURL(url) {
+  return `https://github.com/bonnv79/react-virtualized-new/blob/master/${url}`;
+}
+
 export function generateRandomList() {
   const list = [];
 

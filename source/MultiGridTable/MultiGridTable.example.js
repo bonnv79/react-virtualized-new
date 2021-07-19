@@ -1,11 +1,16 @@
 /** @flow */
 import * as React from 'react';
 import clsx from 'clsx';
-import {ContentBox} from '../demo/ContentBox';
+import {
+  ContentBox,
+  ContentBoxHeader,
+  ContentBoxParagraph,
+} from '../demo/ContentBox';
 import {LabeledInput, InputRow} from '../demo/LabeledInput';
 import MultiGridTable from './MultiGridTable';
 import styles from './MultiGridTable.example.css';
 import multiGridTableStyles from './MultiGridTable.module.css';
+import {getURL} from '../demo/utils';
 
 const sample = [
   ['Frozen yoghurt', 159, 6.0, 24, 4.0],
@@ -163,13 +168,13 @@ export default class MultiGridTableExample extends React.PureComponent {
     );
   }
 
-  _onRowClick = (value, rowData, index, dataKey) => {
+  _onRowClick = (value, rowData, rowIndex, columnKey) => {
     this.setState({
       value: {
         value,
         rowData,
-        index,
-        dataKey,
+        index: rowIndex,
+        dataKey: columnKey,
       },
     });
   };
@@ -221,6 +226,17 @@ export default class MultiGridTableExample extends React.PureComponent {
 
     return (
       <ContentBox>
+        <ContentBoxHeader
+          text="MultiGridTable"
+          sourceLink={getURL('source/MultiGridTable/MultiGridTable.example.js')}
+          docsLink={getURL('docs/MultiGridTable.md')}
+        />
+
+        <ContentBoxParagraph>
+          This component stitches together several grids to provide a fixed
+          column/row interface.
+        </ContentBoxParagraph>
+
         <InputRow>
           {this._createLabeledInput(
             'fixedColumnCount',
