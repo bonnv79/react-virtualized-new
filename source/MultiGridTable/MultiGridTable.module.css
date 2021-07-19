@@ -1,0 +1,74 @@
+.ReactVirtualized__Table__Cell {
+  flex: 1 0 auto;
+  padding: 0px 8px;
+  border-bottom: 1px solid rgba(224, 224, 224, 1);
+  overflow: hidden;
+  align-items: center;
+  display: flex;
+  box-sizing: border-box;
+}
+
+.ReactVirtualized__Table__CellHover {
+  background-color: #efefef;
+}
+
+.ReactVirtualized__Table__CellSelected {
+  background-color: #cbe7ff;
+}
+
+.ReactVirtualized__Table__Cell > span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.ReactVirtualized__Table__Right {
+  justify-content: flex-end;
+}
+
+.ReactVirtualized__Table__Center {
+  justify-content: center;
+}
+
+.ReactVirtualized__Table__NonePointerEvents {
+  pointer-events: none;
+}
+
+.ReactVirtualized__Table__SortBy {
+  padding-right: 18px;
+  position: relative;
+  cursor: pointer;
+  pointer-events: all;
+}
+
+.ReactVirtualized__Table__SortBy:before,
+.ReactVirtualized__Table__SortBy:after {
+  border: 4px solid transparent;
+  content: '';
+  display: block;
+  height: 0;
+  right: 5px;
+  top: 50%;
+  position: absolute;
+  width: 0;
+}
+
+.ReactVirtualized__Table__SortBy:before {
+  border-bottom-color: #666;
+  margin-top: -9px;
+  opacity: 0.3;
+}
+
+.ReactVirtualized__Table__SortBy:after {
+  border-top-color: #666;
+  margin-top: 1px;
+  opacity: 0.3;
+}
+
+.ReactVirtualized__Table__AscSort:before {
+  opacity: 1 !important;
+}
+
+.ReactVirtualized__Table__DescSort:after {
+  opacity: 1 !important;
+}

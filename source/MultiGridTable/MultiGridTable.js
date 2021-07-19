@@ -5,7 +5,7 @@ import AutoSizer from '../AutoSizer';
 import _orderBy from 'lodash/orderBy';
 import _keyBy from 'lodash/keyBy';
 import RefMultiGrid from './RefMultiGrid';
-import styles from './styles.css';
+import styles from './MultiGridTable.module.css';
 import clsx from 'clsx';
 import {
   STYLE,
@@ -44,6 +44,11 @@ const getRows = (rows, sortBy, sortDirection) => {
     return rows;
   }
   return _orderBy(rows, [sortBy], [sortDirection]);
+};
+
+const alignClassName = {
+  right: styles.ReactVirtualized__Table__Right,
+  center: styles.ReactVirtualized__Table__Center,
 };
 
 class MultiGridTable extends React.Component {
@@ -135,19 +140,25 @@ class MultiGridTable extends React.Component {
     const isSort = sortBy === dataKey;
     const ascSort = sortDirection === SORT_DIRECTIONS.ASC;
     const className = {
-      [styles.sortBy]: sort,
-      [styles.ascSort]: isSort && ascSort,
-      [styles.descSort]: isSort && !ascSort,
+      [styles.ReactVirtualized__Table__SortBy]: sort,
+      [styles.ReactVirtualized__Table__AscSort]: isSort && ascSort,
+      [styles.ReactVirtualized__Table__DescSort]: isSort && !ascSort,
     };
 
     return (
-      <div key={key} className={styles.cell} style={style}>
+      <div
+        key={key}
+        className={styles.ReactVirtualized__Table__Cell}
+        style={style}>
         <span
           tabIndex="0"
           role="button"
           aria-pressed="false"
           title={label}
-          className={clsx(styles.nonePointerEvents, className)}
+          className={clsx(
+            styles.ReactVirtualized__Table__NonePointerEvents,
+            className,
+          )}
           onClick={this.changeSort(dataKey)}>
           {label}
         </span>
@@ -166,10 +177,12 @@ class MultiGridTable extends React.Component {
     const rowData = rows[rowIndex - 1];
     const label = rowData[dataKey];
     const id = rowData[rowKey];
+    const selected = value && multiple ? value[id] : value === id;
+
     const className = {
-      [styles.cellHover]: hover === rowIndex,
-      [styles.cellSelected]: value && multiple ? value[id] : value === id,
-      [styles[align]]: !!align,
+      [styles.ReactVirtualized__Table__CellHover]: hover === rowIndex,
+      [styles.ReactVirtualized__Table__CellSelected]: selected,
+      [alignClassName[align]]: !!align,
     };
 
     return (
@@ -178,7 +191,7 @@ class MultiGridTable extends React.Component {
         role="button"
         aria-pressed="false"
         key={key}
-        className={clsx(styles.cell, className)}
+        className={clsx(styles.ReactVirtualized__Table__Cell, className)}
         style={style}
         onClick={this.onRowClick(rowData, dataKey, rowIndex)}
         onMouseEnter={this.onHoverCell(rowIndex)}>
