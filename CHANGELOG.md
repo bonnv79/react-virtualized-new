@@ -3,6 +3,7 @@
 ##### 9.22.5
 
 - Update source, doc link of demo page, fix column width error of MultiGridTable
+- Format code MultiGridTable
 
 ##### 9.22.4
 

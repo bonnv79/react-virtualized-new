@@ -1,5 +1,6 @@
 export const STYLE = {
   border: '1px solid #ddd',
+  userSelect: 'none',
 };
 
 export const STYLE_BOTTOM_LEFT_GRID = {

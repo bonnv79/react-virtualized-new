@@ -16,9 +16,9 @@ class RefMultiGrid extends React.Component {
       prevFixedColumnCount,
       fixedColumnCount,
       setPrevFixedColumnCount,
-      prevColumnsBk,
+      prevColumns,
       columns,
-      setPrevColumnsBk,
+      setPrevColumns,
     } = this.props;
     let isResize = false;
 
@@ -32,8 +32,8 @@ class RefMultiGrid extends React.Component {
       isResize = true;
     }
 
-    if (prevColumnsBk !== columns) {
-      setPrevColumnsBk(columns);
+    if (prevColumns !== columns) {
+      setPrevColumns(columns);
       isResize = true;
     }
 
@@ -67,9 +67,9 @@ RefMultiGrid.propTypes = {
   prevFixedColumnCount: PropTypes.number.isRequired,
   fixedColumnCount: PropTypes.number.isRequired,
   setPrevFixedColumnCount: PropTypes.func.isRequired,
-  prevColumnsBk: PropTypes.arrayOf(Object).isRequired,
+  prevColumns: PropTypes.arrayOf(Object).isRequired,
   columns: PropTypes.arrayOf(Object).isRequired,
-  setPrevColumnsBk: PropTypes.func.isRequired,
+  setPrevColumns: PropTypes.func.isRequired,
 };
 
 export default RefMultiGrid;
