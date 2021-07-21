@@ -19,6 +19,10 @@ export const STYLE_TOP_RIGHT_GRID = {
   fontWeight: 'bold',
 };
 
+export const STYLE_BOTTOM_RIGHT_GRID = {
+  outline: 'none',
+};
+
 export const SORT_DIRECTIONS = {
   ASC: 'asc',
   DESC: 'desc',

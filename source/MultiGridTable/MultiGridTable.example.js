@@ -10,6 +10,7 @@ import MultiGridTable from './MultiGridTable';
 import multiGridTableStyles from '../styles.css';
 import {getURL} from '../demo/utils';
 import {Container, FormLabel} from '../demo/Form';
+import {SORT_DIRECTIONS} from './constants';
 
 const sample = [
   ['Frozen yoghurt', 159, 6.0, 24, 4.0],
@@ -113,14 +114,20 @@ export default class MultiGridTableExample extends React.PureComponent {
       fixedRowCount: 0,
       scrollToColumn: 0,
       scrollToRow: 0,
-      value: {},
+      value: {
+        value: 'id-1', // set default value
+      },
       rowCount: 100,
       columnCount: 0,
       rows: getRows(100),
       columns: getColumns(),
       multiple: false,
-      sortBy: {},
+      sortBy: {
+        sortBy: 'id', // set default sortBy
+        sortDirection: SORT_DIRECTIONS.ASC,
+      },
       scroll: {},
+      autoSort: true,
     };
 
     this._onScrollToColumnChange = this._createEventHandler('scrollToColumn');
@@ -196,6 +203,7 @@ export default class MultiGridTableExample extends React.PureComponent {
       multiple,
       sortBy,
       scroll,
+      autoSort,
     } = this.state;
     let {rows, columns} = this.state;
 
@@ -245,6 +253,9 @@ export default class MultiGridTableExample extends React.PureComponent {
           )}
           {this._createLabeledCheckBox('multiple', event => {
             this.setState({multiple: event.target.checked});
+          })}
+          {this._createLabeledCheckBox('autoSort', event => {
+            this.setState({autoSort: event.target.checked});
           })}
         </InputRow>
 
@@ -322,6 +333,9 @@ export default class MultiGridTableExample extends React.PureComponent {
                 },
               });
             }}
+            sorter={autoSort ? undefined : false}
+            sortBy={sortBy.sortBy}
+            sortDirection={sortBy.sortDirection}
           />
         </div>
       </ContentBox>

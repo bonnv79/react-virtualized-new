@@ -88,6 +88,7 @@
   align-items: center;
   display: flex;
   box-sizing: border-box;
+  outline: none;
 }
 
 .ReactVirtualized__MultiGridTable__CellHover {
@@ -102,6 +103,7 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  outline: none;
 }
 
 .ReactVirtualized__MultiGridTable__Right {

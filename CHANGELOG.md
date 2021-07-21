@@ -1,5 +1,11 @@
 ## Changelog
 
+##### 9.22.7
+
+- Add sorter, sortBy, sortDirection for MultiGridTable
+- Add onMouseLeave for MultiGridTable cell
+- Add outline: none; for cell, cell > span and styleBottomRightGrid of MultiGridTable
+
 ##### 9.22.6
 
 - Add classNameCell, onHeaderRowClick, onScroll for MultiGridTable
