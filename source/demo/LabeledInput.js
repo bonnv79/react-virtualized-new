@@ -10,6 +10,7 @@ export function LabeledInput({
   onChange,
   placeholder,
   value,
+  ...props
 }) {
   const labelClassName = clsx(styles.Label, {
     [styles.LabelDisabled]: disabled,
@@ -28,6 +29,7 @@ export function LabeledInput({
         onChange={onChange}
         value={value}
         disabled={disabled}
+        {...props}
       />
     </div>
   );

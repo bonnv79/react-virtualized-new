@@ -9,7 +9,7 @@ import styles from './Application.css';
 import NavLink from './NavLink';
 import Wizard from './Wizard';
 import {TYPES} from './Icon';
-import {generateRandomList} from './utils';
+import {generateRandomList, getRootURL} from './utils';
 
 import ArrowKeyStepperExample from '../ArrowKeyStepper/ArrowKeyStepper.example';
 import AutoSizerExample from '../AutoSizer/AutoSizer.example';
@@ -104,20 +104,21 @@ export default class Application extends React.PureComponent {
                 <NavLink to="/wizard" iconType={TYPES.WIZARD}>
                   Wizard
                 </NavLink>
-                <NavLink
-                  href="https://github.com/bonnv79/react-virtualized-new"
-                  iconType={TYPES.SOURCE}>
+                <NavLink href={getRootURL('')} iconType={TYPES.SOURCE}>
                   Source
                 </NavLink>
                 <NavLink
-                  href="https://github.com/bonnv79/react-virtualized-new/tree/master/docs#documentation"
+                  href={getRootURL('tree/master/docs#documentation')}
                   iconType={TYPES.DOCUMENTATION}>
                   Documentation
                 </NavLink>
-                <NavLink
-                  href="https://github.com/bonnv79/react-virtualized-new/issues"
-                  iconType={TYPES.ISSUES}>
+                <NavLink href={getRootURL('issues')} iconType={TYPES.ISSUES}>
                   Issues
+                </NavLink>
+                <NavLink
+                  href={getRootURL('blob/master/CHANGELOG.md')}
+                  iconType={TYPES.COMPONENTS}>
+                  Versions
                 </NavLink>
               </ul>
             </div>

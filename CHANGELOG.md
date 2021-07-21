@@ -1,5 +1,10 @@
 ## Changelog
 
+##### 9.22.6
+
+- Add classNameCell, onHeaderRowClick, onScroll for MultiGridTable
+- Add render for column item in MultiGridTable
+
 ##### 9.22.5
 
 - Update source, doc link of demo page, fix column width error of MultiGridTable

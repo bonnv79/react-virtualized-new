@@ -1,8 +1,12 @@
 /**
  * Generate random data for use in examples.
  */
+export function getRootURL(url) {
+  return `https://github.com/bonnv79/react-virtualized-new/${url}`;
+}
+
 export function getURL(url) {
-  return `https://github.com/bonnv79/react-virtualized-new/blob/master/${url}`;
+  return getRootURL(`blob/master/${url}`);
 }
 
 export function generateRandomList() {
