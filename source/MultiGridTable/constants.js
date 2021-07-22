@@ -36,3 +36,5 @@ export const OPPOSITION_SORT_DIRECTIONS = {
 export const DEFAULT_COLUMN_WIDTH = 100;
 
 export const SCROLLBAR_WIDTH = 18;
+
+export const MULTIPLE_SHIFT_MODE = 'shift';

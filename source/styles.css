@@ -91,6 +91,9 @@
   outline: none;
 }
 
+.ReactVirtualized__MultiGridTable__HeaderCell {
+}
+
 .ReactVirtualized__MultiGridTable__CellHover {
   background-color: #efefef;
 }

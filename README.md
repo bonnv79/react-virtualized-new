@@ -15,42 +15,42 @@ If you're considering adding `react-virtualized` to a project, take a look at [`
 
 ## Getting started
 
-Install `react-virtualized` using npm.
+Install `react-virtualized-new` using npm.
 
 ```shell
-npm install react-virtualized --save
+npm install react-virtualized-new --save
 ```
 
 ES6, CommonJS, and UMD builds are available with each distribution.
 For example:
 
 ```js
-// Most of react-virtualized's styles are functional (eg position, size).
+// Most of react-virtualized-new's styles are functional (eg position, size).
 // Functional styles are applied directly to DOM elements.
 // The Table component ships with a few presentational styles as well.
 // They are optional, but if you want them you will need to also import the CSS file.
 // This only needs to be done once; probably during your application's bootstrapping process.
-import 'react-virtualized/styles.css';
+import 'react-virtualized-new/styles.css';
 
-// You can import any component you want as a named export from 'react-virtualized', eg
-import {Column, Table} from 'react-virtualized';
+// You can import any component you want as a named export from 'react-virtualized-new', eg
+import {Column, Table} from 'react-virtualized-new';
 
-// But if you only use a few react-virtualized components,
+// But if you only use a few react-virtualized-new components,
 // And you're concerned about increasing your application's bundle size,
 // You can directly import only the components you need, like so:
-import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
-import List from 'react-virtualized/dist/commonjs/List';
+import AutoSizer from 'react-virtualized-new/dist/commonjs/AutoSizer';
+import List from 'react-virtualized-new/dist/commonjs/List';
 ```
 
 Note webpack 4 makes this optimization itself, see the [documentation](https://webpack.js.org/guides/tree-shaking/#mark-the-file-as-side-effect-free).
 
-If the above syntax looks too cumbersome, or you import react-virtualized components from a lot of places, you can also configure a Webpack alias. For example:
+If the above syntax looks too cumbersome, or you import react-virtualized-new components from a lot of places, you can also configure a Webpack alias. For example:
 
 ```js
 // Partial webpack.config.js
 {
   alias: {
-    'react-virtualized/List': 'react-virtualized/dist/es/List',
+    'react-virtualized-new/List': 'react-virtualized-new/dist/es/List',
   },
   ...rest
 }
@@ -59,7 +59,7 @@ If the above syntax looks too cumbersome, or you import react-virtualized compon
 Then you can just import like so:
 
 ```js
-import List from 'react-virtualized/List';
+import List from 'react-virtualized-new/List';
 
 // Now you can use <List {...props} />
 ```

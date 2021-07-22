@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import AutoSizer from '../AutoSizer';
 import _orderBy from 'lodash/orderBy';
 import _keyBy from 'lodash/keyBy';
+import _isEmpty from 'lodash/isEmpty';
+import _slice from 'lodash/slice';
+import _map from 'lodash/map';
 import RefMultiGrid from './RefMultiGrid';
 import clsx from 'clsx';
 import {
@@ -15,6 +18,7 @@ import {
   DEFAULT_COLUMN_WIDTH,
   SCROLLBAR_WIDTH,
   STYLE_BOTTOM_RIGHT_GRID,
+  MULTIPLE_SHIFT_MODE,
 } from './constants';
 
 const getMapColumns = columns => {
@@ -78,8 +82,12 @@ class MultiGridTable extends React.PureComponent {
       prevWidth: 0,
       prevFixedColumnCount: fixedColumnCount,
       prevColumns: columns,
+      alignClassName: {
+        right: this.getClassName('ReactVirtualized__MultiGridTable__Right'),
+        center: this.getClassName('ReactVirtualized__MultiGridTable__Center'),
+      },
+      shiftIndex: null,
     };
-    this.getClassName = this.getClassName.bind(this);
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -90,12 +98,14 @@ class MultiGridTable extends React.PureComponent {
       newState.sortBy = props.sortBy;
       newState.prevSortBy = props.sortBy;
       sortBy = props.sortBy;
+      newState.shiftIndex = null;
     }
 
     if (props.sortDirection !== state.prevSortDirection) {
       newState.sortDirection = props.sortDirection;
       newState.prevSortDirection = props.sortDirection;
       sortDirection = props.sortDirection;
+      newState.shiftIndex = null;
     }
 
     if (props.columns !== state.originalColumns) {
@@ -106,6 +116,7 @@ class MultiGridTable extends React.PureComponent {
     if (props.rows !== state.originalRows) {
       newState.rows = getRows(props.rows, sortBy, sortDirection, props.sorter);
       newState.originalRows = props.rows;
+      newState.shiftIndex = null;
     }
 
     if (props.value !== state.originalValue) {
@@ -116,12 +127,24 @@ class MultiGridTable extends React.PureComponent {
     return newState;
   }
 
+  getClassName = className => {
+    const {classes} = this.props;
+    return clsx([className, classes[className]]);
+  };
+
+  setShiftIndex = shiftIndex => {
+    this.setState({
+      shiftIndex,
+    });
+  };
+
   changeSort = sortBy => () => {
     const {onHeaderRowClick, sorter} = this.props;
     const {
       sortBy: prevSortBy,
       sortDirection: prevSortDirection,
       originalRows,
+      shiftIndex,
     } = this.state;
     let sortDirection = SORT_DIRECTIONS.ASC;
     let reset = false;
@@ -151,6 +174,39 @@ class MultiGridTable extends React.PureComponent {
       sortBy: currentSortBy,
       sortDirection: currentSortDirection,
     });
+
+    if (shiftIndex !== null) {
+      this.setShiftIndex(null);
+    }
+  };
+
+  handleMultiple = (value, id) => {
+    let newValue = {...value};
+    if (newValue[id]) {
+      delete newValue[id];
+    } else {
+      newValue[id] = id;
+    }
+    return newValue;
+  };
+
+  handleMultipleShift = (value, index, rowKey, id, event) => {
+    let newValue = {...value};
+    const {shiftIndex} = this.state;
+    if (event.shiftKey && shiftIndex !== null) {
+      const {rows} = this.state;
+      const min = Math.min(shiftIndex, index);
+      const max = Math.max(shiftIndex, index) + 1;
+      newValue = _map(_slice(rows, min, max), rowKey);
+    } else if (event.ctrlKey) {
+      this.setShiftIndex(index);
+      newValue = this.handleMultiple(newValue, id);
+    } else {
+      this.setShiftIndex(index);
+      newValue = {[id]: id};
+    }
+
+    return newValue;
   };
 
   onRowClick = (rowData, dataKey, index) => event => {
@@ -162,13 +218,13 @@ class MultiGridTable extends React.PureComponent {
       const {value} = this.state;
       newValue = typeof value === 'object' ? value : {};
 
-      if (newValue[id]) {
-        delete newValue[id];
+      if (multiple === MULTIPLE_SHIFT_MODE) {
+        newValue = this.handleMultipleShift(newValue, index, rowKey, id, event);
       } else {
-        newValue[id] = id;
+        newValue = this.handleMultiple(newValue, id);
       }
 
-      newValue = Object.values(newValue);
+      newValue = Array.isArray(newValue) ? newValue : _map(newValue);
     }
 
     onRowClick(newValue, rowData, index, dataKey, event); // event={ shiftKey: bool, ctrlKey: bool }
@@ -181,7 +237,7 @@ class MultiGridTable extends React.PureComponent {
   };
 
   headerCellRenderer = ({key, columnIndex, style}) => {
-    const {columns, sortBy, sortDirection} = this.state;
+    const {columns, sortBy, sortDirection, alignClassName} = this.state;
     const {dataKey, label, sort, align} = columns[columnIndex];
     const isSort = sortBy === dataKey;
     const ascSort = sortDirection === SORT_DIRECTIONS.ASC;
@@ -198,7 +254,7 @@ class MultiGridTable extends React.PureComponent {
     const className = {};
 
     if (align && align !== 'left') {
-      className[this.getAlignClassName(align)] = true;
+      className[alignClassName[align]] = true;
     }
 
     const classNameLabel = {
@@ -210,8 +266,9 @@ class MultiGridTable extends React.PureComponent {
     return (
       <div
         key={key}
-        className={this.getClassName(
-          'ReactVirtualized__MultiGridTable__Cell',
+        className={clsx(
+          this.getClassName('ReactVirtualized__MultiGridTable__Cell'),
+          this.getClassName('ReactVirtualized__MultiGridTable__HeaderCell'),
           className,
         )}
         style={style}>
@@ -220,8 +277,10 @@ class MultiGridTable extends React.PureComponent {
           role="button"
           aria-pressed="false"
           title={label}
-          className={this.getClassName(
-            'ReactVirtualized__MultiGridTable__NonePointerEvents',
+          className={clsx(
+            this.getClassName(
+              'ReactVirtualized__MultiGridTable__NonePointerEvents',
+            ),
             classNameLabel,
           )}
           onClick={this.changeSort(dataKey)}>
@@ -235,9 +294,12 @@ class MultiGridTable extends React.PureComponent {
     if (rowIndex === 0) {
       return this.headerCellRenderer({key, columnIndex, style, rowIndex});
     }
-    const index = rowIndex - 1;
     const {rowKey, multiple, classNameCell} = this.props;
-    const {rows, columns, hover, value} = this.state;
+    const {rows, columns, hover, value, alignClassName} = this.state;
+    if (_isEmpty(rows)) {
+      return null;
+    }
+    const index = rowIndex - 1;
     const {dataKey, align, render} = columns[columnIndex];
     const rowData = rows[index];
     const label = rowData[dataKey] || '';
@@ -257,7 +319,7 @@ class MultiGridTable extends React.PureComponent {
     };
 
     if (align && align !== 'left') {
-      className[this.getAlignClassName(align)] = true;
+      className[alignClassName[align]] = true;
     }
 
     let classCell = classNameCell;
@@ -283,8 +345,8 @@ class MultiGridTable extends React.PureComponent {
         role="button"
         aria-pressed="false"
         key={key}
-        className={this.getClassName(
-          'ReactVirtualized__MultiGridTable__Cell',
+        className={clsx(
+          this.getClassName('ReactVirtualized__MultiGridTable__Cell'),
           className,
         )}
         style={style}
@@ -295,27 +357,6 @@ class MultiGridTable extends React.PureComponent {
       </div>
     );
   };
-
-  getAlignClassName = align => {
-    const alignClassName = {
-      right: this.getClassName('ReactVirtualized__MultiGridTable__Right'),
-      center: this.getClassName('ReactVirtualized__MultiGridTable__Center'),
-    };
-    return alignClassName[align];
-  };
-
-  getClassName(className) {
-    const {classes} = this.props;
-    const classNames = [className, classes[className]];
-
-    if (arguments.length > 1) {
-      for (let i = 1; i < arguments.length; i += 1) {
-        classNames.push(arguments[i]);
-      }
-    }
-
-    return clsx(classNames);
-  }
 
   getColumnWidth = gridWidth => ({index}) => {
     const {columns} = this.state;
@@ -424,20 +465,26 @@ MultiGridTable.propTypes = {
   fixedRowCount: PropTypes.number,
   scrollToColumn: PropTypes.number,
   scrollToRow: PropTypes.number,
+  rowHeight: PropTypes.number,
   rowKey: PropTypes.string,
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
     PropTypes.instanceOf(Array),
   ]),
-  multiple: PropTypes.bool,
+  multiple: PropTypes.oneOf([true, false, MULTIPLE_SHIFT_MODE]),
   classNameCell: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   onRowClick: PropTypes.func,
   onHeaderRowClick: PropTypes.func,
   onScroll: PropTypes.func,
   sorter: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   sortBy: PropTypes.string,
-  sortDirection: PropTypes.oneOf([...Object.values(SORT_DIRECTIONS), '', null]),
+  sortDirection: PropTypes.oneOf([
+    ...Object.values(SORT_DIRECTIONS),
+    '',
+    null,
+    false,
+  ]),
 };
 
 export default MultiGridTable;

@@ -1,15 +1,23 @@
 ## Changelog
 
+##### 9.22.8
+
+- \*\*\*Add shift multiple mode for MultiGridTable
+- Add ReactVirtualized**MultiGridTable**HeaderCell for header cell in MultiGridTable
+- Format className in MultiGridTable
+- Fix error in demo page
+- Rename react-virtualized into react-virtualized-new of Getting started in README.md file
+
 ##### 9.22.7
 
-- Add sorter, sortBy, sortDirection for MultiGridTable
+- \*\*\*Add sorter, sortBy, sortDirection for MultiGridTable
 - Add onMouseLeave for MultiGridTable cell
 - Add outline: none; for cell, cell > span and styleBottomRightGrid of MultiGridTable
 
 ##### 9.22.6
 
-- Add classNameCell, onHeaderRowClick, onScroll for MultiGridTable
-- Add render for column item in MultiGridTable
+- \*\*\*Add classNameCell, onHeaderRowClick, onScroll for MultiGridTable
+- \*\*\*Add render for column item in MultiGridTable
 
 ##### 9.22.5
 
@@ -18,7 +26,7 @@
 
 ##### 9.22.4
 
-- Add new MultiGridTable component
+- \*\*\*Add new MultiGridTable component
 
 ##### 9.22.3
 

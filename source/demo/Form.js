@@ -11,12 +11,18 @@ export const Container = ({style, children, inline}) => {
   );
 };
 
-export const FormLabel = ({style, label, children, inline}) => {
+export const FormLabel = ({
+  contentClassName,
+  style,
+  label,
+  children,
+  inline,
+}) => {
   const className = {[styles.formInline]: inline};
   return (
     <div className={clsx(styles.form, className)} style={style}>
       <div className={styles.label}>{label}</div>
-      <div className={styles.content}>{children}</div>
+      <div className={clsx(styles.content, contentClassName)}>{children}</div>
     </div>
   );
 };
