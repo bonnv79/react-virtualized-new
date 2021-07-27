@@ -3,7 +3,7 @@
   "description": "React components for efficiently rendering large, scrollable lists and tabular data",
   "author": "Brian Vaughn <brian.david.vaughn@gmail.com>",
   "user": "bonnv79",
-  "version": "9.22.8",
+  "version": "9.22.9",
   "homepage": "https://github.com/bonnv79/react-virtualized-new",
   "main": "dist/commonjs/index.js",
   "module": "dist/es/index.js",
@@ -144,7 +144,8 @@
     "dom-helpers": "^5.1.3",
     "loose-envify": "^1.4.0",
     "prop-types": "^15.7.2",
-    "react-lifecycles-compat": "^3.0.4"
+    "react-lifecycles-compat": "^3.0.4",
+    "react-select": "^4.3.1"
   },
   "peerDependencies": {
     "react": "^15.3.0 || ^16.0.0-alpha || ^17.0.1",

@@ -1,5 +1,9 @@
 ## Changelog
 
+##### 9.22.9
+
+- \*\*\*Add new VirtualizedSelect component
+
 ##### 9.22.8
 
 - \*\*\*Add shift multiple mode for MultiGridTable

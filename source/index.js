@@ -31,3 +31,4 @@ export {
 } from './Table';
 export {WindowScroller} from './WindowScroller';
 export {MultiGridTable} from './MultiGridTable';
+export {VirtualizedSelect} from './VirtualizedSelect';
